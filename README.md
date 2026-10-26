@@ -77,6 +77,22 @@
 %LOCALAPPDATA%\MemoryGallery
 ```
 
+## macOS 版本与贡献
+
+拾光目前仅支持 Windows。现有版本基于 WPF、WinForms 和部分 Win32 接口，无法直接编译为 macOS 应用，因此 Mac 版本需要使用原生技术重新实现。
+
+我们非常欢迎熟悉 Swift、SwiftUI 或 AppKit 的开发者参与 macOS 版本。目标不是逐行翻译 Windows 代码，而是在保留“桌面顶部展开照片晾衣绳”这一核心体验的同时，做出符合 macOS 使用习惯的原生应用。
+
+可以优先参与的方向包括：
+
+- 桌面顶部触发区域与无边框悬浮窗口。
+- 照片晾衣绳布局、连续拖动和边缘自动浏览。
+- 大图预览、缩放、平移和自动关闭。
+- 多显示器、全屏应用与 Mission Control 场景适配。
+- 菜单栏入口、登录时启动和本地照片权限处理。
+- 与 Windows 版兼容的照片备注、回忆便签和设置数据格式。
+- Developer ID 签名、notarization 及 GitHub Actions 自动构建。
+
 ## 从源码构建
 
 在 Windows PowerShell 中运行：
