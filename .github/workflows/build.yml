@@ -1,0 +1,32 @@
+name: build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        shell: powershell
+        run: .\build.ps1 -OutputDirectory .\dist -IncludeTests
+      - name: Storage self-test
+        shell: powershell
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'memory-gallery-self-test'
+          & .\dist\MemoryGallery.exe --self-test --data-dir $root
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Get-Content (Join-Path $root 'self-test-results.txt')
+      - name: Memo self-test
+        shell: powershell
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'memory-gallery-memo-test'
+          & .\dist\MemoryGallery.exe --memo-test --data-dir $root
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Get-Content (Join-Path $root 'memo-results.txt')
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MemoryGallery-windows
+          path: dist/

@@ -1,0 +1,22 @@
+# Build and release output
+/dist/
+/album-dist/
+/album-build-next/
+/test-build/
+/release/
+
+# Local smoke-test data
+/smoke-*/
+/selftest-*/
+/memotest-*/
+/release-smoke-data/
+/tests/run-*/
+/tests/perf-opt-*/
+/tests/lazy-thumb-*/
+
+# Editor and transient files
+*.tmp
+*.log
+.vs/
+.vscode/
+
