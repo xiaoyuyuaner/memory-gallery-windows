@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and package
+        shell: powershell
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart('v')
+          .\package.ps1 -Version $version
+
+      - name: Publish GitHub Release
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" `
+            .\release\*.zip `
+            .\release\*.sha256 `
+            --title "拾光 ${{ github.ref_name }}" `
+            --generate-notes `
+            --notes "首个公开版本。便携运行，所有照片与数据均保存在本机。下载后请核对随附的 SHA-256。"
