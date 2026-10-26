@@ -30,4 +30,4 @@ jobs:
             .\release\*.sha256 `
             --title "拾光 ${{ github.ref_name }}" `
             --generate-notes `
-            --notes "首个公开版本。便携运行，所有照片与数据均保存在本机。下载后请核对随附的 SHA-256。"
+            --notes-file .\RELEASE_NOTES.md
